@@ -1,0 +1,149 @@
+title: "电气工程建模与仿真 (2026)"
+description: "本课程专为电气工程及相关专业的学生设计，旨在通过 Python 编程语言掌握现代数学建模、科学计算、优化算法以及机器学习的基础。课程涵盖了从基本的符号计算和数值分析，到高级的动力学仿真、启发式优化（遗传算法、粒子群等）、统计回归分析及深度学习初探。通过大量的工程案例实践，培养学生解决复杂工程问题的数字化建模能力和工程实践素养。"
+author: "AI Professor"
+version: "1.0"
+structure:
+  - id: "unit_01_intro"
+    title: "Unit 1: 建模与 Python 基础"
+    description: "数学建模的基本概念与 Python 科学计算环境（NumPy, SymPy, SciPy）的初探。"
+    lessons:
+      - id: "lesson_01_what_is_modeling"
+        title: "什么是数学建模"
+        activities:
+          - "01_course_intro.py"
+          - "02_what_is_modeling.py"
+          - "03_modeling_steps.py"
+          - "04_parameters_and_variables.py"
+      - id: "lesson_02_python_intro"
+        title: "Python 简介与环境搭建"
+        activities:
+          - "01_why_python.py"
+          - "02_vscode_and_python.py"
+          - "03_python_basics.py"
+          - "04_numpy_intro.py"
+      - id: "lesson_03_python_math"
+        title: "Python 数学编程与符号计算"
+        activities:
+          - "01_differentiation.py"
+          - "02_numerical_differentiation.py"
+          - "03_integration.py"
+          - "04_linear_algebra.py"
+          - "05_nonlinear_equations.py"
+          - "06_unit_assignment.py"
+
+  - id: "unit_02_data_processing"
+    title: "Unit 2: 数据处理与信号分析"
+    description: "利用 Matplotlib 进行可视化，通过 Pandas 进行数据清洗，以及基础的信号处理与曲线拟合。"
+    lessons:
+      - id: "lesson_01_python_data_processing"
+        title: "数据可视化与处理进阶"
+        activities:
+          - "01_matplotlib_basics.py"
+          - "02_subplots_and_scatter.py"
+          - "03_pandas_basics.py"
+          - "04_data_cleaning.py"
+          - "05_signal_processing.py"
+          - "06_curve_fitting.py"
+          - "07_assignment.py"
+
+  - id: "unit_03_python_adv_math"
+    title: "Unit 3: 动力学系统建模"
+    description: "常微分方程（ODE）的数值求解以及随机模拟（蒙特卡洛模拟）的应用。"
+    lessons:
+      - id: "lesson_01_python_adv_math"
+        title: "高级数学建模算法"
+        activities:
+          - "01_ode_modeling.py"
+          - "02_monte_carlo.py"
+          - "03_monte_carlo_advanced.py"
+          - "04_assignment.py"
+
+  - id: "unit_04_optimization"
+    title: "Unit 4: 规划与优化算法"
+    description: "经典数学优化：线性规划与非线性规划的建模与 Python 求解。"
+    lessons:
+      - id: "lesson_01_optimization"
+        title: "规划算法基础"
+        activities:
+          - "01_linear_programming.py"
+          - "02_nonlinear_programming.py"
+          - "03_assignment.py"
+
+  - id: "unit_05_more_optimization"
+    title: "Unit 5: 启发式优化算法"
+    description: "群体智能与现代启发式搜索：遗传算法、模拟退火、蚁群算法与粒子群算法。"
+    lessons:
+      - id: "lesson_01_heuristic_optimization"
+        title: "智能优化算法实践"
+        activities:
+          - "01_intro_to_heuristics.py"
+          - "02_genetic_algorithm.py"
+          - "03_simulated_annealing.py"
+          - "04_ant_colony.py"
+          - "05_particle_swarm.py"
+
+  - id: "unit_06_regression"
+    title: "Unit 6: 统计建模与回归分析"
+    description: "从数据探索到模型构建：线性回归、多元回归、逻辑回归及非线性回归分析。"
+    lessons:
+      - id: "lesson_01_intro"
+        title: "数据科学与线性建模"
+        activities:
+          - "01_data_science_intro.py"
+          - "02_eda.py"
+          - "03_basic_regression.py"
+          - "04_basic_regression_2.py"
+      - id: "lesson_05_multi_variable_regression"
+        title: "多元回归分析"
+        activities:
+          - "01_multi_variable_regression.py"
+      - id: "lesson_06_logistic_regression"
+        title: "分类决策：逻辑回归"
+        activities:
+          - "01_logistic_regression.py"
+      - id: "lesson_07_non_linear_regression"
+        title: "复杂关系建模：非线性回归"
+        activities:
+          - "01_non_linear_regression.py"
+      - id: "lesson_08_assignment"
+        title: "回归分析综合实践 (Titanic)"
+        activities:
+          - "01_titanic_survival_prediction.py"
+
+  - id: "unit_07_classification_clustering"
+    title: "Unit 7: 机器学习与模式识别"
+    description: "分类算法（SVM, KNN, 决策树）、主成分分析（PCA）降维以及聚类分析（K-Means）。"
+    lessons:
+      - id: "lesson_01_ml_intro"
+        title: "机器学习导论"
+        activities:
+          - "01_machine_learning_intro.py"
+      - id: "lesson_02_advanced_regression"
+        title: "高级回归技术"
+        activities:
+          - "01_advanced_regression.py"
+      - id: "lesson_03_classification"
+        title: "分类算法进阶"
+        activities:
+          - "01_classification.py"
+      - id: "lesson_04_pca"
+        title: "降维与特征选择"
+        activities:
+          - "01_feature_selection_pca.py"
+      - id: "lesson_05_clustering"
+        title: "无监督学习：聚类"
+        activities:
+          - "01_clustering.py"
+
+  - id: "unit_08_deep_learning"
+    title: "Unit 8: 深度学习入门"
+    description: "神经网络基础，包括深度学习与传统机器学习的差异及基本网络构建。"
+    lessons:
+      - id: "lesson_01_deep_learning"
+        title: "深度学习概论"
+        activities:
+          - "01_introduction_to_dl.py"
+      - id: "lesson_02_dl_vs_traditional"
+        title: "对比与展望"
+        activities:
+          - "01_dl_vs_traditional.py"
