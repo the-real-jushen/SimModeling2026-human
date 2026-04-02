@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip show:*)",
+      "Bash(uv venv:*)",
+      "Bash(where.exe uv:*)",
+      "Bash(pip install:*)",
+      "Bash(uv pip:*)"
+    ]
+  }
+}

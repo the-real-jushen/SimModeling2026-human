@@ -1,3 +1,4 @@
+
 # %% [markdown]
 """
 # Python 基础语法：工程师的极速复习指南
@@ -174,9 +175,21 @@ print(f"重力加速度为9.8时，下落 5 秒的距离是: {height} 米")
 
 # %%
 # 写一个函数生成一个斐波那契数列
+def fibonacci(n):
+    if n == 1:
+        return [1]
+    elif n == 2:
+        return [1, 1]
+    
+    # 从第三项开始生成数列
+    seq = [1, 1]
+    for i in range(2, n):
+        next_value = seq[i-1] + seq[i-2]  # 当前项等于前两项之和
+        seq.append(next_value)
+    
+    return seq
 
-
-print("生成的斐波那契数列为:", fibonacci(5))
+print("生成的斐波那契数列为:", fibonacci(7))
 
 # %% [markdown]
 """
@@ -261,7 +274,7 @@ print("提取前两个元素:", test_arr[0:2])
 print("从下标 2 开始获取到最后的所有:", test_arr[2:])
 
 # 还可以搭配步长功能跨点获取
-print("从头切到第 5 个，步长设为 2:", test_arr[0:5:2])
+print("从头切到第 5 个，步长设为 2:", test_arr[0::2])
 
 # 支持连体加法 (拼接)
 b_arr = test_arr[:3] + [101, 102] + test_arr[-2:]
