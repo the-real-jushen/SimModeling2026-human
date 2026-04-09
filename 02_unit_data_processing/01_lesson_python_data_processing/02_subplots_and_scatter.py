@@ -163,8 +163,8 @@ Z = X * np.exp(-X**2 - Y**2)
 
 # 3. 创建画布和 3D 坐标系
 fig = plt.figure(figsize=(10, 7))
-# gca() 意思是 Get Current Axes，获取当前的坐标系实例
-ax = fig.gca(projection='3d')
+# add_subplot() 会创建一个新的 3D 坐标系，兼容性比 gca(projection='3d') 更好
+ax = fig.add_subplot(111, projection='3d')
 
 # 4. 绘制 3D 曲面
 # cmap='viridis' 指定了颜色映射方案，使得不同高度显示不同颜色
@@ -301,6 +301,117 @@ plt.show()
 
 # %% [markdown]
 """
+## 9. `projection` 还有哪些常见选项？
+
+在 Matplotlib 中，`projection` 用来告诉坐标轴：要用什么“坐标系/投影方式”来显示数据。
+
+下面是几种常见类型：
+
+1. `rectilinear`
+    - 默认的直角坐标系，也就是最常见的 x-y 平面。
+    - 如果你不写 `projection`，通常就是它。
+
+2. `polar`
+    - 极坐标系。
+    - 适合表示角度与半径，例如雷达方向、旋转系统、周期分布等。
+
+3. `3d`
+    - 三维坐标系。
+    - 适合曲面图、三维散点图、空间轨迹图。
+
+4. `aitoff`
+    - 一种地图投影方式。
+    - 常用于展示全球经纬度数据。
+
+5. `hammer`
+    - 也是地图投影方式。
+    - 常用于全球范围分布图，可视化效果较平滑。
+
+6. `lambert`
+    - Lambert 地图投影。
+    - 也可用于球面方向数据的展示。
+
+7. `mollweide`
+    - Mollweide 地图投影。
+    - 常用于全球数据、天文数据的整体分布图。
+
+注意：
+- `polar`、`aitoff`、`hammer`、`lambert`、`mollweide` 都可以直接通过 `subplot(..., projection='...')` 创建。
+- `3d` 更推荐用 `fig.add_subplot(..., projection='3d')`。
+
+"""
+
+# %%
+# 演示几种常见 projection 的效果
+
+fig = plt.figure(figsize=(14, 10))
+
+# 1. 默认直角坐标系 rectilinear
+ax1 = fig.add_subplot(2, 3, 1)
+x_demo = np.linspace(0, 2*np.pi, 200)
+ax1.plot(x_demo, np.sin(x_demo), color='tab:blue')
+ax1.set_title('rectilinear')
+ax1.grid(True)
+
+# 2. 极坐标 polar
+ax2 = fig.add_subplot(2, 3, 2, projection='polar')
+theta_demo = np.linspace(0, 2*np.pi, 400)
+r_demo = 1 + 0.4 * np.sin(5 * theta_demo)
+ax2.plot(theta_demo, r_demo, color='tab:orange')
+ax2.set_title('polar')
+
+# 3. Aitoff 投影
+ax3 = fig.add_subplot(2, 3, 3, projection='aitoff')
+lon = np.linspace(-np.pi, np.pi, 400)
+lat = 0.4 * np.sin(2 * lon)
+ax3.plot(lon, lat, color='tab:green')
+ax3.set_title('aitoff')
+ax3.grid(True)
+
+# 4. Hammer 投影
+ax4 = fig.add_subplot(2, 3, 4, projection='hammer')
+ax4.plot(lon, lat, color='tab:red')
+ax4.set_title('hammer')
+ax4.grid(True)
+
+# 5. Lambert 投影
+ax5 = fig.add_subplot(2, 3, 5, projection='lambert')
+ax5.plot(lon, lat, color='tab:purple')
+ax5.set_title('lambert')
+ax5.grid(True)
+
+# 6. Mollweide 投影
+ax6 = fig.add_subplot(2, 3, 6, projection='mollweide')
+ax6.plot(lon, lat, color='tab:brown')
+ax6.set_title('mollweide')
+ax6.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+
+# %%
+# 单独演示 3d projection
+
+# 构造三维曲面数据
+x3d = np.linspace(-2, 2, 80)
+y3d = np.linspace(-2, 2, 80)
+X3d, Y3d = np.meshgrid(x3d, y3d)
+Z3d = np.sin(np.sqrt(X3d**2 + Y3d**2))
+
+fig = plt.figure(figsize=(8, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X3d, Y3d, Z3d, cmap='viridis', edgecolor='none', alpha=0.85)
+
+ax.set_title('3d')
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+ax.set_zlabel('Z axis')
+
+plt.show()
+
+# %% [markdown]
+"""
 ### 综合挑战：弹跳小球的物理轨迹可视化编程
 
 一个小球，在平地上从高度为 `h` 的某处**水平**抛出，其初始水平速度为 `v`。
@@ -318,9 +429,40 @@ import matplotlib.pyplot as plt
 
 def bounce_ball(h, v):
     g = 9.8
-    # TODO: 请在这个函数里利用 numpy 向量和 matplotlib 功能
-    # 画出平抛小球完整经历了第一次反弹(弹起垂直回升初速度衰减为 0.7 倍，水平速度 v 不变)
-    # 直至第二次砸向地面的完整两段连续抛物线轨迹。
-    pass
+    # 第一段：小球从高度 h 水平抛出，初始竖直速度为 0
+    t1_end = np.sqrt(2 * h / g)
+    t1 = np.linspace(0, t1_end, 200)
+    x1 = v * t1
+    y1 = h - 0.5 * g * t1**2
+
+    # 第一次落地前的竖直速度大小，用于计算反弹后的初始上抛速度
+    vy_before_bounce = g * t1_end
+    vy_after_bounce = 0.7 * vy_before_bounce
+
+    # 第二段：从第一次落地点开始，继续运动直到第二次落地
+    # 从地面竖直向上抛出，起始高度为 0
+    t2_end = 2 * vy_after_bounce / g
+    t2 = np.linspace(0, t2_end, 200)
+    x2 = x1[-1] + v * t2
+    y2 = vy_after_bounce * t2 - 0.5 * g * t2**2
+
+    plt.figure(figsize=(10, 6))
+
+    # 两段轨迹分别画出，便于观察反弹前后变化
+    plt.plot(x1, y1, label='First flight')
+    plt.plot(x2, y2, label='After first bounce')
+
+    # 标出起点、第一次落地点和第二次落地点
+    plt.scatter([0, x1[-1], x2[-1]], [h, 0, 0], color='red', zorder=5)
+
+    plt.title('Bouncing Ball Trajectory')
+    plt.xlabel('Horizontal Distance x (m)')
+    plt.ylabel('Height y (m)')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.ylim(bottom=0)
+    plt.show()
     
 bounce_ball(10, 10)
+
+# %%
